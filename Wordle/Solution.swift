@@ -17,6 +17,18 @@ struct Solution {
     ///   - return: [true, false, true, false, true]
     func exactMatches(guess: [Character], answer: [Character]) -> [Bool] {
         // TODO: Compare each letter in guess to the same index in answer
+        var result: [Bool] = []
+        
+        for i in 1 ... guess.count - 1 {
+            if guess[i] == answer[i] {
+                result.append(true)
+            }
+            else {
+                result.append(false)
+            }
+            
+        }
+        return result
     }
 
     /// 2️⃣ Return an array of Bools where each value is `true`
@@ -30,6 +42,17 @@ struct Solution {
     ///   - return: [false, true, true, false, false]
     func partialMatches(guess: [Character], answer: [Character]) -> [Bool] {
         // TODO: Use indexing and contains to check for wrong-position matches
+        var result: [Bool] = []
+        
+        for i in 1 ... guess.count - 1 {
+            if answer.contains(guess[i]) && guess[i] == answer[i] {
+                result.append(true)
+            }
+            else {
+                result.append(false)
+            }
+        }
+        return result
     }
 
     /// 3️⃣ Return an array of emoji strings (["✅", "⚠️", "🛑"]) that show
@@ -39,6 +62,24 @@ struct Solution {
     /// - 🛑 if the letter is not in the word at all
     func generateFeedback(guess: [Character], answer: [Character]) -> [String] {
         // TODO: Use exactMatches and partialMatches to build feedback array
+        var result: [String] = []
+        
+        let exact = exactMatches(guess: guess, answer: answer)
+        let partial = partialMatches(guess: guess, answer: answer)
+        
+        for i in 1 ... guess.count - 1 {
+            if exact[i] {
+                result.append("✅")
+            }
+            
+            else if partial[i] {
+                result.append("⚠️")
+            }
+            else {
+                result.append("🛑")
+            }
+        }
+        return result
     }
 
     /// 4️⃣ Convert an array of emoji strings into a single display string
@@ -48,6 +89,11 @@ struct Solution {
     ///   - return: "✅ ⚠️ 🛑"
     func arrayToDisplayString(_ arr: [String]) -> String {
         // TODO: Use .joined(separator:) to turn the array into a display line
+        var out_string: String = ""
+        for i in arr {
+            out_string += i
+        }
+        return out_string
     }
 
     /// 5️⃣ Return true if ALL characters in the guess match the answer exactly
@@ -56,5 +102,11 @@ struct Solution {
     /// - Tip: Use exactMatches and check if all values are `true`
     func isWinningGuess(guess: [Character], answer: [Character]) -> Bool {
         // TODO: Check if the player has guessed all characters correctly
+        if guess == answer {
+            return true
+        }
+        else {
+            return false
+        }
     }
 }
